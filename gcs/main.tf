@@ -1,9 +1,9 @@
-resource "google_storage_bucket" "gce" {
+resource "google_storage_bucket" "gcs" {
   name          = var.name
   location      = var.location
   force_destroy = var.force_destroy
 
-  uniform_bucket_level_access = true 
+  uniform_bucket_level_access = var.enable_website ? true : var.uniform_bucket_level_access
 
   dynamic "website" {
     for_each = var.enable_website ? [1] : []
@@ -45,8 +45,25 @@ resource "google_storage_bucket" "gce" {
   }
 }
 
+# If enabled_webiste is true is recommended to use uniform level access for such buckets
 resource "google_storage_bucket_acl" "image-store-acl" {
-  count       = var.enable_gce_acl ? 1 : 0
-  bucket      = google_storage_bucket.gce.name
+  count       = var.enable_website ? 0 : var.uniform_bucket_level_access ? 1 : 0
+  bucket      = google_storage_bucket.gcs.name
   role_entity = var.role_entity
+}
+
+resource "google_storage_bucket_object" "object" {
+  for_each = var.bucket_objects
+
+  name         = each.value.name
+  content_type = each.value.content_type
+  bucket       = google_storage_bucket.gcs.id
+}
+
+resource "google_storage_bucket_iam_member" "rule" {
+  for_each = var.iam_rule
+
+  role   = each.value.role
+  member = each.value.member
+  bucket = google_storage_bucket.static_website.name
 }

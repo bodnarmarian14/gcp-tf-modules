@@ -68,7 +68,7 @@ variable "versioning" {
   description = "Enable or disable versioning for the bucket."
 }
 
-variable "enable_gce_acl" {
+variable "uniform_bucket_level_access" {
   type        = bool
   default     = false
   description = "Enable legacy ACLs for the bucket."
@@ -78,4 +78,22 @@ variable "role_entity" {
   type        = list(string)
   default     = []
   description = "List of role/entity pairs for the ACL (e.g. ['OWNER:user-my-user'])."
+}
+
+variable "bucket_objects" {
+  description = "A map of objects to upload to the GCS bucket."
+  type = map(object({
+    name         = string
+    content_type = string
+  }))
+  default = {}
+}
+
+variable "iam_rule" {
+  description = "A map of IAM roles and members to apply to the bucket."
+  type = map(object({
+    role   = string
+    member = string
+  }))
+  default = {}
 }
