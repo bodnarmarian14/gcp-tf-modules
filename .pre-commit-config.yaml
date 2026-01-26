@@ -11,7 +11,7 @@ repos:
       - id: check-json
       - id: check-added-large-files
       - id: check-merge-conflict
-      - id: detect-private-key  # Basic check for unencrypted keys
+      - id: detect-private-key
 
   # =======================================================
   # 2. TERRAFORM (Docs, Linting, Formatting)
@@ -19,6 +19,11 @@ repos:
   - repo: https://github.com/antonbabenko/pre-commit-terraform
     rev: v1.88.0
     hooks:
+      - id: terraform_docs_without_aggregate_type_defaults
+        args:
+          - --hook-config=--path-to-file=README.md
+          - --hook-config=--add-to-existing-file=true
+          - --hook-config=--create-file-if-not-exist=true
       - id: terraform_fmt
       - id: terraform_tflint
         files: \.tf$
