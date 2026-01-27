@@ -1,13 +1,3 @@
-terraform {
-  required_version = ">= 1.5.0"
-  required_providers {
-    google = {
-      source  = "hashicorp/google"
-      version = ">= 5.0"
-    }
-  }
-}
-
 # 1. The VPC Network
 resource "google_compute_network" "vpc_network" {
   name                    = var.network_name
