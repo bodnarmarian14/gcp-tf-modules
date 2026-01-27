@@ -85,6 +85,7 @@ variable "bucket_objects" {
   type = map(object({
     name         = string
     content_type = string
+    source       = string
   }))
   default = {}
 }

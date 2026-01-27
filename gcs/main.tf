@@ -47,7 +47,7 @@ resource "google_storage_bucket" "gcs" {
 
 # If enabled_webiste is true is recommended to use uniform level access for such buckets
 resource "google_storage_bucket_acl" "image-store-acl" {
-  count       = var.enable_website ? 0 : var.uniform_bucket_level_access ? 1 : 0
+  count       = (!var.enable_website && !var.uniform_bucket_level_access) ? 1 : 0
   bucket      = google_storage_bucket.gcs.name
   role_entity = var.role_entity
 }
@@ -57,7 +57,8 @@ resource "google_storage_bucket_object" "object" {
 
   name         = each.value.name
   content_type = each.value.content_type
-  bucket       = google_storage_bucket.gcs.id
+  bucket       = google_storage_bucket.gcs.name
+  source       = each.value.source
 }
 
 resource "google_storage_bucket_iam_member" "rule" {
@@ -65,5 +66,5 @@ resource "google_storage_bucket_iam_member" "rule" {
 
   role   = each.value.role
   member = each.value.member
-  bucket = google_storage_bucket.static_website.name
+  bucket = google_storage_bucket.gcs.name
 }
