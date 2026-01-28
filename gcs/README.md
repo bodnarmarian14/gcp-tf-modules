@@ -36,6 +36,7 @@ No modules.
 | <a name="input_main_page_suffix"></a> [main\_page\_suffix](#input\_main\_page\_suffix) | The main page (index) for the static website. | `string` | `"index.html"` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of the GCS bucket. | `string` | n/a | yes |
 | <a name="input_not_found_page"></a> [not\_found\_page](#input\_not\_found\_page) | The 404 error page for the static website. | `string` | `"404.html"` | no |
+| <a name="input_project_id"></a> [project\_id](#input\_project\_id) | Project id where bucket will be placed. | `string` | n/a | yes |
 | <a name="input_role_entity"></a> [role\_entity](#input\_role\_entity) | List of role/entity pairs for the ACL (e.g. ['OWNER:user-my-user']). | `list(string)` | `[]` | no |
 | <a name="input_uniform_bucket_level_access"></a> [uniform\_bucket\_level\_access](#input\_uniform\_bucket\_level\_access) | Enable legacy ACLs for the bucket. | `bool` | `false` | no |
 | <a name="input_versioning"></a> [versioning](#input\_versioning) | Enable or disable versioning for the bucket. | `bool` | `false` | no |

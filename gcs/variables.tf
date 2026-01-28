@@ -1,3 +1,8 @@
+variable "project_id" {
+  type        = string
+  description = "Project id where bucket will be placed."
+}
+
 variable "name" {
   type        = string
   description = "Name of the GCS bucket."
