@@ -1,18 +1,13 @@
 variable "project_id" { type = string }
-variable "network_name" { type = string }
+#variable "region" { type = string }
+variable "subnetwork" { type = string }
 
-variable "subnets" {
-  description = "List of subnets to create"
-  type = list(object({
-    name   = string
-    region = string
-    cidr   = string
+variable "instances" {
+  description = "Map of instances to create"
+  type = map(object({
+    machine_type = string
+    zone         = string
+    image        = string
+    tags         = list(string)
   }))
-  default = []
-}
-
-variable "firewall_rules" {
-  description = "Dynamic list of firewall rules"
-  type = any
-  default = []
 }
