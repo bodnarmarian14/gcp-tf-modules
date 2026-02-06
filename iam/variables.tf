@@ -1,7 +1,6 @@
 variable "project_id" {
-  default     = "default"
   type        = string
-  description = "Sets the project where the SA/SAs will be dployed."
+  description = "Sets the project where the SA/SAs will be deployed."
 }
 
 variable "service_accounts" {
@@ -10,5 +9,5 @@ variable "service_accounts" {
     display_name = string
   }))
   default     = []
-  description = "List of sercice accounts."
+  description = "List of service accounts."
 }
