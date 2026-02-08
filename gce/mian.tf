@@ -22,8 +22,16 @@ resource "google_compute_instance" "vm" {
   }
 
   network_interface {
+    network    = var.network
     subnetwork = var.subnetwork
-    # Add access_config {} here if you want a Public IP
+
+    dynamic "access_config" {
+      for_each = var.enable_public_ip ? [1] : [0]
+
+      content {
+        network_tier = "STANDARD"
+      }
+    }
   }
 
   service_account {
@@ -33,4 +41,13 @@ resource "google_compute_instance" "vm" {
 
   # Good practice: allow stopping for resize/update
   allow_stopping_for_update = true
+
+  # --- VALIDATION LOGIC ---
+  # This block ensures that at least one of network or subnetwork is set.
+  lifecycle {
+    precondition {
+      condition     = var.network != "" || var.subnetwork != ""
+      error_message = "You must specify either a 'network' or a 'subnetwork'. Both cannot be empty."
+    }
+  }
 }
