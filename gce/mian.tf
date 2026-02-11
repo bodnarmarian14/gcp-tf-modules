@@ -26,7 +26,7 @@ resource "google_compute_instance" "vm" {
     subnetwork = var.subnetwork
 
     dynamic "access_config" {
-      for_each = var.enable_public_ip ? [1] : [0]
+      for_each = var.enable_public_ip ? [1] : []
 
       content {
         network_tier = "STANDARD"

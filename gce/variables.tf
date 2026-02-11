@@ -1,13 +1,21 @@
-variable "project_id" { type = string }
-#variable "region" { type = string }
-variable "subnetwork" { type = string }
-
 variable "network" {
-  type = string
+  description = "The name or self_link of the network."
+  type        = string
+  default     = null
+}
+
+variable "subnetwork" {
+  description = "The name or self_link of the subnetwork."
+  type        = string
+  default     = null
+}
+variable "network" {
+  description = "VPC network name or self-link for the instance."
+  type        = string
 }
 
 variable "enable_public_ip" {
-  description = "Assinge public IP address to instance if set to true."
+  description = "Assign a public IP to the instance when true."
   type        = bool
   default     = false
 }
