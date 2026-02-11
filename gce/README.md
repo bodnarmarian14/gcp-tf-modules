@@ -24,9 +24,10 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_enable_public_ip"></a> [enable\_public\_ip](#input\_enable\_public\_ip) | Assign a public IP to the instance when true. | `bool` | `false` | no |
 | <a name="input_instances"></a> [instances](#input\_instances) | Map of instances to create | <pre>map(object({<br/>    machine_type = string<br/>    zone         = string<br/>    image        = string<br/>    tags         = list(string)<br/>  }))</pre> | n/a | yes |
-| <a name="input_project_id"></a> [project\_id](#input\_project\_id) | n/a | `string` | n/a | yes |
-| <a name="input_subnetwork"></a> [subnetwork](#input\_subnetwork) | variable "region" { type = string } | `string` | n/a | yes |
+| <a name="input_network"></a> [network](#input\_network) | VPC network name or self-link for the instance. | `string` | n/a | yes |
+| <a name="input_subnetwork"></a> [subnetwork](#input\_subnetwork) | The name or self\_link of the subnetwork. | `string` | `null` | no |
 
 ## Outputs
 
